@@ -46,7 +46,7 @@
     updateLocalStorage();
   };
 
-  const completeTodo = (id: number) => {
+  const toggleTodo = (id: number) => {
     todos = todos.map((todo) => {
       if (todo.id === id) {
         return {
@@ -57,20 +57,7 @@
       return todo;
     });
     updateLocalStorage();
-  };
-
-  const undoCompleteTodo = (id: number) => {
-    todos = todos.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          completed: !todo.completed,
-        };
-      }
-      return todo;
-    });
-    updateLocalStorage();
-  };
+  }
 
   const removeTodo = (id: number) => {
     todos = todos.filter((todo) => todo.id !== id);
@@ -102,7 +89,7 @@
       {#if !todo.completed}
         <Todo
           {...todo}
-          on:toggle={(event) => completeTodo(event.detail)}
+          on:toggle={(event) => toggleTodo(event.detail)}
           on:remove={(event) => removeTodo(event.detail)}
         />
       {/if}
@@ -115,7 +102,7 @@
       {#if todo.completed}
         <Todo
           {...todo}
-          on:toggle={(event) => undoCompleteTodo(event.detail)}
+          on:toggle={(event) => toggleTodo(event.detail)}
           on:remove={(event) => removeTodo(event.detail)}
         />
       {/if}
